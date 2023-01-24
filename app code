@@ -1,34 +1,39 @@
 import React, { useEffect, useState, TouchableOpacity} from "react";
-import {View,Text,StyleSheet,Button,ScrollView,SafeAreaView,StatusBar,Image,TextInput,setInput,Pressable,ImageBackground, AppRegistry,Platform} from "react-native";
+import {View,Text,StyleSheet,Button,ScrollView,SafeAreaView,StatusBar,Image,TextInput,setInput,Pressable,ImageBackground, AppRegistry,Platform,input} from "react-native";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from "@react-navigation/stack";
 import { useFonts } from "expo-font";
 const Tab = createBottomTabNavigator();
 const image = {uri: 'https://i.imgur.com/icVp9VE.png'};
 const icon = {uri: 'https://i.imgur.com/A8EJ0pd.png'};
-const badge = {uri: 'https://i.imgur.com/omCgQq0.jpg'};
+const badge = {uri: ''};
 const home= {uri: ''};
 const file = {uri: ''};
 const client = {uri: ''};
 const settigns = {uri: ''};
 
 
-
-const homescreen = () => (
+function homeScreen({ navigation }) {
+  return (
 
     <View style ={styles.container}>
-      <View style = {styles.box1}/>
       <ImageBackground source={image} style={styles.image}/>
              <View style = {styles.box5}>
-                 <ImageBackground source={badge} style={styles.image3}/>
+               <Text style ={styles.text}>Yandiya Commisions</Text>
+               <Text style = {styles.inc}>   Installation and {"\n"}commision process</Text>
+              <View style={styles.continue}> 
+              <Button onPress={() => navigation.navigate("login")}title ="continue"/>
+              </View>
              </View>
     </View>
   );
+}
+function mainScreen({ navigation }) {
+  return (
 
-const mainscreen = () => (
     <View style ={styles.container}>
-      <View style = {styles.box1}/>
       <ImageBackground source={image} style={styles.image}>
            <Text style={styles.text}>Yandiya commisions</Text>
       </ImageBackground>
@@ -39,31 +44,52 @@ const mainscreen = () => (
          <Text style={styles.text1}>  You dont appear to have any work, you're fired for being unproductive</Text>
          </View>
        <View style = {styles.box4}/>
+        <View style={styles.Home}> 
+          <Button source={icon} onPress={() => navigation.navigate("Home")}title ="Home"/>
+        </View>
     </View>
-    
 );
+}
+function loginScreen({ navigation }) {
+  return (
+    <View style ={styles.container}>
+      <ImageBackground source={image} style={styles.image}>
+           <Text style={styles.text}>Yandiya sign in</Text>
+      </ImageBackground>
+      <ImageBackground source={icon} style={styles.image2}>
+      </ImageBackground>
+          <Text style={{ marginVertical: 16 }}>
+        {name ? `Hi ${name}!` : 'Input Email'}
+      </Text>
+      <TextInput
+        style={{ padding: 8, backgroundColor: '#f5f5f5' }}
+        onChangeText={text => setName(text)}
+        secureTextEntry
+      />
+      </View>
+  );
+}
+const Drawer = createDrawerNavigator();
 
-const App = () => (
-  <NavigationContainer>
-    <AppNavigator />
-  </NavigationContainer>
-);
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Drawer.Navigator initialRouteName="Home">
+        <Drawer.Screen name="Home" component={homeScreen} />
+         <Drawer.Screen name="main" component={mainScreen} />
+         <Drawer.Screen name="login" component={loginScreen} />
+      </Drawer.Navigator>
+    </NavigationContainer>
+  );
+}
 
-export const AppNavigator = () => (
-  <Tab.Navigator>
-    <Tab.Screen name="Home" component={homescreen} />
-    <Tab.Screen name="main" component={mainscreen} />
-  </Tab.Navigator>
-);
-
-export default App;
 
 export const styles = StyleSheet.create({
     container: {
       },
       image: {
        width: 282,
-       height: 460,
+       height: 500,
        flex: 1,
       },
       image2: {
@@ -72,16 +98,17 @@ export const styles = StyleSheet.create({
        position: 'absolute', top: -30, left: -60,
       },
        image3: {
-       width: 300,
+       width: 250,
        height: 90,
-       position: 'absolute', top: -20, left: -5,
+       position: 'absolute', top: -20, left: 20,
+       borderRadius: 100,
       },
       text: {
         color: 'white',
         fontSize: 18,
         lineHeight: 84,
         textAllign: 'right',
-        position: 'absolute', top: -30, left: 60,
+        position: 'absolute', top: -5, left: 50,
         fontWeight: "bold",
     },
     box1:{
@@ -110,15 +137,18 @@ export const styles = StyleSheet.create({
         borderRadius: 20,
     },
     box5:{
-        backgroundColor: "grey",
+        backgroundColor: "#5e1313",
         width: 270,
         height: 80,
         position: 'absolute', top: 30, right: 5,
-        borderRadius: 30,
+        borderRadius: 100,
+        color: "white"
     },
      text1: {
-        color: 'white',
         fontSize: 12,
+        position: 'absolute', top: 20, right: 40,
+        fontWeight: "bold",
+        color: "white",
      },
         home:{
         backgroundColor: "whitesmoke",
@@ -148,4 +178,18 @@ export const styles = StyleSheet.create({
         position: 'absolute', top: 410, right: 215,
         borderRadius: 10,
       },
+      inc:{
+        color: 'white',
+         position: 'absolute', top: 150, right: 50,
+         fontSize: 18,
+         fontWeight: "bold"
+      },
+      continue:{
+      flex: 1, alignItems: 'center', justifyContent: 'center',
+               position: 'absolute', top: 400, right: 90
+      },
+      Home:{
+         flex: 1, alignItems: 'center', justifyContent: 'center',
+               position: 'absolute', top: 460, right: 220
+      }
 })
