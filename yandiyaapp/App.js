@@ -3,9 +3,20 @@ import {View,Text,StyleSheet,Button,ScrollView,SafeAreaView,StatusBar,Image,Text
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { useFonts } from "expo-font";
-const Tab = createBottomTabNavigator();
 
 
+
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createStackNavigator } from "@react-navigation/stack";
+import { useFonts } from "expo-font";
+const image = {uri: 'https://i.imgur.com/icVp9VE.png'};
+const icon = {uri: 'https://i.imgur.com/A8EJ0pd.png'};
+const badge = {uri: ''};
+const home= {uri: ''};
+const file = {uri: ''};
+const client = {uri: ''};
+const settigns = {uri: ''};
 
 function homeScreen({ navigation }) {
   return (
@@ -184,4 +195,5 @@ export const styles = StyleSheet.create({
          flex: 1, alignItems: 'center', justifyContent: 'center',
                position: 'absolute', top: 460, right: 220
       }
+
 })
