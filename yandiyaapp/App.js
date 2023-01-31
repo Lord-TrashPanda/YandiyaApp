@@ -5,7 +5,7 @@ import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { useFonts } from "expo-font";
 
-import { styles } from "./Style";
+import { styles } from "./styles";
 
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { useFonts } from "expo-font";
