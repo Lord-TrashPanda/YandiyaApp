@@ -10,29 +10,6 @@ import { styles } from "./styles";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { useFonts } from "expo-font";
 
-const image = {uri: 'https://i.imgur.com/icVp9VE.png'};
-const icon = {uri: 'https://i.imgur.com/A8EJ0pd.png'};
-
-const badge = {uri: ''};
-const home= {uri: ''};
-const file = {uri: ''};
-const client = {uri: ''};
-const settigns = {uri: ''};
-
-function homeScreen({ navigation }) {
-  return (
-    <View style ={styles.container}>
-      <ImageBackground source={image} style={styles.image}/>
-             <View style = {styles.box5}>
-               <Text style ={styles.text}>Yandiya Commisions</Text>
-               <Text style = {styles.inc}>   Installation and {"\n"}commision process</Text>
-              <View style={styles.continue}> 
-              <Button onPress={() => navigation.navigate("login")}title ="continue"/>
-              </View>
-             </View>
-    </View>
-  );
-}
 function mainScreen({ navigation }) {
   return (
     <View style ={styles.container}>
