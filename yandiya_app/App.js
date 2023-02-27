@@ -1,5 +1,6 @@
+//IMPORTS
 import React, { useEffect, useState, TouchableOpacity, useRef } from 'react';
-import Checkbox from 'expo-checkbox';
+
 import {
   View,
   Text,
@@ -18,31 +19,23 @@ import {
   input,
   container,
   Dimensions,
-  CheckBox,
   Switch,
 } from 'react-native';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-const image = { uri: 'https://i.imgur.com/A8WIsR2.png' };
-const icon = { uri: 'https://i.imgur.com/5QVr3RA.png' };
-const window = Dimensions.get('window');
-import { Ionicons } from '@expo/vector-icons';
-import ToggleSwitch from './ToggleSwitch';
-import bottom from './bottom.jpg';
+
+import ToggleSwitch from './toggleSwitch.js';
+import bottom from './assets/bottom.jpg';
+
+//CONSTANTS
+
 const Stack = createStackNavigator();
+const image = './assets/yandiyaLogo_Wide.png';
+const icon = './assets/yandiyaLogo_Small.png';
+const window = Dimensions.get('window');
 
-//   <Checkbox style={styles.checkbox} value={checked} onValueChange={setChecked} />
-
-function MyCheckbox() {
-  const [checked, setChecked] = useState(false);
-  return (
-    <Pressable
-      style={[styles.checkboxBase, checked && styles.checkboxChecked]}
-      onPress={() => setChecked(!checked)}>
-      {checked && <Ionicons name="checkmark" size={24} color="white" />}
-    </Pressable>
-  );
-}
+//DARKMODE VALUE
 
 const Change = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -50,6 +43,12 @@ const Change = () => {
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
   };
+
+  //EXTERNAL STYLESHEET
+
+  const externalStyleSheet = './styles.js';
+
+  //INTERNAL STYLESHEET
 
   const styles = StyleSheet.create({
     container: {
@@ -61,199 +60,27 @@ const Change = () => {
     text: {
       color: isDarkMode ? '#fff' : '#333',
     },
-    image: {
-      width: 190,
-      height: 200,
-      flex: 1,
-      position: 'absolute',
-      top: -45,
-      right: 0,
-    },
-    icon: {
-      width: 400,
-      height: 400,
-      position: 'absolute',
-      top: -300,
-      left: -190,
-    },
-    text: {
-      color: 'white',
-      fontSize: 18,
-      lineHeight: 84,
-      textAllign: 'right',
-      position: 'absolute',
-      top: -5,
-      left: 50,
-      fontWeight: 'bold',
-    },
-    signUp: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-      position: 'absolute',
-      top: 300,
-      right: 94,
-      color: '#212121',
-      borderWidth: 5,
-      borderColor: '#000000',
-    },
-    logIn: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-      position: 'absolute',
-      top: 360,
-      right: 90,
-      borderWidth: 5,
-      borderColor: '#000000',
-    },
-    settings: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-      position: 'absolute',
-      top: 460,
-      right: 10,
-    },
-    space: {
-      flex: 1,
-    },
-    bannerBox: {
-      flex: 5,
-      justifyContent: 'center',
-      backgroundColor: '#e42c22',
-    },
-    space: {
-      flex: 1,
-    },
-    middleBox: {
-      backgroundColor: '#f8f7f7',
-      justifyContent: 'center',
-      flex: 10,
-      width: 250,
-      marginLeft: 15,
-      borderRadius: 40,
-    },
-    fixToText: {
-      marginTop: 40,
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      textAlign: 'center',
-      marginBottom: 50,
-      marginLeft: 30,
-      marginRight: 30,
-    },
-    boxFont: {
-      justifyContent: 'center',
-      textAlign: 'center',
-    },
-    shadow: {
-      shadowColor: '#000000',
-      top: 100,
-    },
-    shadowOffset: {
-      width: 0,
-      height: 9,
-      shadowOpacity: 0.25,
-      shadowRadius: 40,
-      elevation: 18,
-    },
-    section: {
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    paragraph: {
-      fontSize: 15,
-    },
-    checkbox: {
-      margin: 8,
-    },
-    box: {
-      height: 50,
-      width: 220,
-      backgroundColor: '#000000',
-      position: 'absolute',
-      left: 40,
-      top: 20,
-      color: 'white',
-      borderRadius: 20,
-      textAlign: 'center',
-      flex: 1,
-    },
-    box1: {
-      height: 30,
-      width: 220,
-      backgroundColor: '#000000',
-      position: 'absolute',
-      left: 40,
-      top: 90,
-      color: 'white',
-      borderRadius: 20,
-      textAlign: 'center',
-      flex: 1,
-    },
-    clientBox1: {
-      height: 30,
-      width: 260,
-      backgroundColor: '#000000',
-      position: 'absolute',
-      left: 40,
-      top: 20,
-      color: 'white',
-      borderRadius: 20,
-      textAlign: 'center',
-      flex: 1,
-    },
-    clientBox2: {
-      height: 30,
-      width: 260,
-      backgroundColor: '#000000',
-      position: 'absolute',
-      left: 40,
-      top: 90,
-      color: 'white',
-      borderRadius: 20,
-      textAlign: 'center',
-      flex: 1,
-    },
-    clientBox3: {
-      height: 30,
-      width: 260,
-      backgroundColor: '#000000',
-      position: 'absolute',
-      left: 40,
-      top: 160,
-      color: 'white',
-      borderRadius: 20,
-      textAlign: 'center',
-      flex: 1,
-    },
-    clientsBottomButton: {
-      position: 'absolute',
-      top: 550,
-      right: 80,
-    },
-    bottom:{
-      width: 390,
-      height: 90,
-      position:"absolute",
-      top: 300,
-      left:-60,
-    },
   });
 
   //<ToggleSwitch isDarkMode={isDarkMode} onToggle={toggleDarkMode} />
 
-  function initialScreen({ navigation: { navigate } }) {
+//SCREEN FUNCTIONS
+
+function initialScreen({ navigation: { navigate } }) {
     const [checked, setChecked] = useState(false);
     return (
       <View style={styles.container}>
         <ImageBackground source={image} style={styles.image} />
-        <ImageBackground source={bottom} style={{ width: 390,
-      height: 90,
-      position:"absolute",
-      top: 670,
-      left:0,}} />
+        <ImageBackground
+          source={bottom}
+          style={{
+            width: 390,
+            height: 90,
+            position: 'absolute',
+            top: 670,
+            left: 0,
+          }}
+        />
         <View
           style={{
             height: window.height * 0.05,
@@ -296,15 +123,20 @@ const Change = () => {
       </View>
     );
   }
-  function settingsScreen({ navigation: { navigate } }) {
+function settingsScreen({ navigation: { navigate } }) {
     return (
       <View style={styles.container}>
         <ImageBackground source={image} style={styles.image} />
-        <ImageBackground source={bottom} style={{ width: 390,
-      height: 90,
-      position:"absolute",
-      top: 670,
-      left:0,}} />
+        <ImageBackground
+          source={bottom}
+          style={{
+            width: 390,
+            height: 90,
+            position: 'absolute',
+            top: 670,
+            left: 0,
+          }}
+        />
         <View
           style={{
             height: 30,
@@ -331,32 +163,30 @@ const Change = () => {
           }}>
           <Button
             color="#212121"
-            onPress={() => navigate('Info')}
-            title="Info"
-          />
-          <Button
-            color="#212121"
             onPress={() => navigate('LogOut')}
             title="Logout"
           />
-          <View style={{ position: 'absolute',
-            top: 90,
-            right: 90,}}>
-          <ToggleSwitch isDarkMode={isDarkMode} onToggle={toggleDarkMode} />
+          <View style={{ position: 'absolute', top: 90, right: 90 }}>
+            <ToggleSwitch isDarkMode={isDarkMode} onToggle={toggleDarkMode} />
           </View>
         </View>
       </View>
     );
   }
-  function firstScreen({ navigation: { navigate } }) {
+function firstScreen({ navigation: { navigate } }) {
     return (
       <View style={styles.container}>
         <ImageBackground source={image} style={styles.image} />
-         <ImageBackground source={bottom} style={{ width: 390,
-      height: 90,
-      position:"absolute",
-      top: 670,
-      left:0,}} />
+        <ImageBackground
+          source={bottom}
+          style={{
+            width: 390,
+            height: 90,
+            position: 'absolute',
+            top: 670,
+            left: 0,
+          }}
+        />
         <View
           style={{
             height: 30,
@@ -421,7 +251,7 @@ const Change = () => {
     );
   }
 
-  function mainScreen({ navigation: { navigate } }) {
+function mainScreen({ navigation: { navigate } }) {
     const [isDarkMode, setIsDarkMode] = useState(false);
 
     const handleToggleSwitch = () => {
@@ -431,11 +261,16 @@ const Change = () => {
     return (
       <View style={styles.container}>
         <ImageBackground source={image} style={styles.image} />
-         <ImageBackground source={bottom} style={{ width: 390,
-      height: 90,
-      position:"absolute",
-      top: 670,
-      left:0,}} />
+        <ImageBackground
+          source={bottom}
+          style={{
+            width: 390,
+            height: 90,
+            position: 'absolute',
+            top: 670,
+            left: 0,
+          }}
+        />
         <View
           style={{
             height: 30,
@@ -495,176 +330,62 @@ const Change = () => {
     );
   }
 
- function loginScreen({ navigation: { navigate } }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+function loginScreen({ navigation: { navigate } }) {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
-  const handleEmailChange = (text) => {
-    setEmail(text);
-    checkInputsFilled();
-  };
+    const handleEmailChange = (text) => {
+      setEmail(text);
+      checkInputsFilled();
+    };
 
-  const handlePasswordChange = (text) => {
-    setPassword(text);
-    checkInputsFilled();
-  };
+    const handlePasswordChange = (text) => {
+      setPassword(text);
+      checkInputsFilled();
+    };
 
-  const checkInputsFilled = () => {
-    if (email && password) {
-      setIsButtonDisabled(false);
-    } else {
-      setIsButtonDisabled(true);
-    }
-  };
+    const checkInputsFilled = () => {
+      if (email && password) {
+        setIsButtonDisabled(false);
+      } else {
+        setIsButtonDisabled(true);
+      }
+    };
 
-  return (
-    <View style={styles.container}>
-      <ImageBackground source={image} style={styles.image} />
-      <ImageBackground
-        source={bottom}
-        style={{
-          width: 390,
-          height: 90,
-          position: 'absolute',
-          top: 670,
-          left: 0,
-        }}
-      />
-      <View
-        style={{
-          height: 30,
-          width: 380,
-          backgroundColor: '#e42c22',
-          borderRadius: 20,
-          position: 'absolute',
-          left: 1,
-          top: 60,
-        }}
-      />
-      <View
-        style={{
-          height: 250,
-          width: 330,
-          backgroundColor: '#ffffff',
-          border: 'black',
-          position: 'absolute',
-          left: 30,
-          top: 150,
-          borderRadius: 20,
-          boxShadow: '10px 10px 40px #454545',
-          borderWidth: 5,
-          borderColor: '#000000',
-        }}
-      >
-        <ScrollView>
-          <Text style={{ marginVertical: 16 }}>{'Input Email'}</Text>
-          <TextInput
-            style={{ padding: 8, backgroundColor: '#f5f5f5' }}
-            placeholder="enter here"
-            value={email}
-            onChangeText={handleEmailChange}
-          />
-          <Text style={{ marginVertical: 16 }}>{'Input Password'}</Text>
-          <TextInput
-            style={{ padding: 8, backgroundColor: '#f5f5f5' }}
-            placeholder="enter here"
-            secureTextEntry
-            value={password}
-            onChangeText={handlePasswordChange}
-          />
-          <View
-            style={{
-              position: 'absolute',
-              top: 210,
-              right: 120,
-              fontWeight: 'bold',
-            }}
-          >
-            <Button
-              color="green"
-              onPress={() => navigate('main')}
-              title="confirm"
-              disabled={isButtonDisabled}
-            />
-          </View>
-        </ScrollView>
-      </View>
-    </View>
-  );
-}
-
- function signInScreen({ navigation: { navigate } }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordagain, setpasswordagain] = useState('');
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-
-  const handleEmailChange = (text) => {
-    setEmail(text);
-    checkInputsFilled();
-  };
-
-  const handlePasswordChange = (text) => {
-    setPassword(text);
-    checkInputsFilled();
-  };
-
-  const handlePasswordChangeAgain = (text) => {
-    setpasswordagain(text);
-    checkInputsFilled();
-  };
-
-  const checkInputsFilled = () => {
-    if (email && password && passwordagain) {
-      setIsButtonDisabled(false);
-    } else {
-      setIsButtonDisabled(true);
-    }
-  };
-
-  return (
-    <View style={styles.container}>
-      <ImageBackground source={image} style={styles.image} />
-      <ImageBackground
-        source={bottom}
-        style={{
-          width: 390,
-          height: 90,
-          position: 'absolute',
-          top: 670,
-          left: 0,
-        }}
-      />
-      <View
-        style={{
-          height: 30,
-          width: 380,
-          backgroundColor: '#e42c22',
-          borderRadius: 20,
-          position: 'absolute',
-          left: 1,
-          top: 60,
-        }}>
-        <Text
+    return (
+      <View style={styles.container}>
+        <ImageBackground source={image} style={styles.image} />
+        <ImageBackground
+          source={bottom}
           style={{
-            color: 'white',
-            fontSize: 18,
+            width: 390,
+            height: 90,
             position: 'absolute',
-            left: 160,
-          }}>
-          Sign up
-        </Text>
-        <View></View>
+            top: 670,
+            left: 0,
+          }}
+        />
         <View
           style={{
-            height: 320,
+            height: 30,
+            width: 380,
+            backgroundColor: '#e42c22',
+            borderRadius: 20,
+            position: 'absolute',
+            left: 1,
+            top: 60,
+          }}
+        />
+        <View
+          style={{
+            height: 250,
             width: 330,
             backgroundColor: '#ffffff',
             border: 'black',
             position: 'absolute',
             left: 30,
-            top: 120,
+            top: 150,
             borderRadius: 20,
             boxShadow: '10px 10px 40px #454545',
             borderWidth: 5,
@@ -675,6 +396,7 @@ const Change = () => {
             <TextInput
               style={{ padding: 8, backgroundColor: '#f5f5f5' }}
               placeholder="enter here"
+              value={email}
               onChangeText={handleEmailChange}
             />
             <Text style={{ marginVertical: 16 }}>{'Input Password'}</Text>
@@ -682,17 +404,16 @@ const Change = () => {
               style={{ padding: 8, backgroundColor: '#f5f5f5' }}
               placeholder="enter here"
               secureTextEntry
+              value={password}
               onChangeText={handlePasswordChange}
             />
-            <Text style={{ marginVertical: 16 }}>{'Re-enter Password'}</Text>
-            <TextInput
-              style={{ padding: 8, backgroundColor: '#f5f5f5' }}
-              placeholder="enter here"
-              secureTextEntry
-              onChangeText={handlePasswordChangeAgain}
-            />
-
-            <View style={{ position: 'absolute', top: 270, right: 120 }}>
+            <View
+              style={{
+                position: 'absolute',
+                top: 210,
+                right: 120,
+                fontWeight: 'bold',
+              }}>
               <Button
                 color="green"
                 onPress={() => navigate('main')}
@@ -703,29 +424,52 @@ const Change = () => {
           </ScrollView>
         </View>
       </View>
-    </View>
-  );
-}
+    );
+  }
 
-  function infoScreen({ navigation: { navigate } }) {
-    const [client, setClient] = useState('');
-   const [location, setLocation] = useState('');
-   const [postCode, setPostCode] = useState('');
-   const [address, setAddress] = useState('');
-   const [email, setEmail] = useState('');
-   const [city, setCity] = useState('');
-   const [phoneNumber, setPhoneNumber] = useState('');
-   const [contactPerson, setContactPerson] = useState('');
+function signInScreen({ navigation: { navigate } }) {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [passwordagain, setpasswordagain] = useState('');
+    const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+    const handleEmailChange = (text) => {
+      setEmail(text);
+      checkInputsFilled();
+    };
+
+    const handlePasswordChange = (text) => {
+      setPassword(text);
+      checkInputsFilled();
+    };
+
+    const handlePasswordChangeAgain = (text) => {
+      setpasswordagain(text);
+      checkInputsFilled();
+    };
+
+    const checkInputsFilled = () => {
+      if (email && password && passwordagain) {
+        setIsButtonDisabled(false);
+      } else {
+        setIsButtonDisabled(true);
+      }
+    };
 
     return (
       <View style={styles.container}>
         <ImageBackground source={image} style={styles.image} />
-         <ImageBackground source={bottom} style={{ width: 390,
-      height: 90,
-      position:"absolute",
-      top: 670,
-      left:0,}} />
-         <View
+        <ImageBackground
+          source={bottom}
+          style={{
+            width: 390,
+            height: 90,
+            position: 'absolute',
+            top: 670,
+            left: 0,
+          }}
+        />
+        <View
           style={{
             height: 30,
             width: 380,
@@ -734,8 +478,103 @@ const Change = () => {
             position: 'absolute',
             left: 1,
             top: 60,
-          }}/>
-       <View
+          }}>
+          <Text
+            style={{
+              color: 'white',
+              fontSize: 18,
+              position: 'absolute',
+              left: 160,
+            }}>
+            Sign up
+          </Text>
+          <View></View>
+          <View
+            style={{
+              height: 320,
+              width: 330,
+              backgroundColor: '#ffffff',
+              border: 'black',
+              position: 'absolute',
+              left: 30,
+              top: 120,
+              borderRadius: 20,
+              boxShadow: '10px 10px 40px #454545',
+              borderWidth: 5,
+              borderColor: '#000000',
+            }}>
+            <ScrollView>
+              <Text style={{ marginVertical: 16 }}>{'Input Email'}</Text>
+              <TextInput
+                style={{ padding: 8, backgroundColor: '#f5f5f5' }}
+                placeholder="enter here"
+                onChangeText={handleEmailChange}
+              />
+              <Text style={{ marginVertical: 16 }}>{'Input Password'}</Text>
+              <TextInput
+                style={{ padding: 8, backgroundColor: '#f5f5f5' }}
+                placeholder="enter here"
+                secureTextEntry
+                onChangeText={handlePasswordChange}
+              />
+              <Text style={{ marginVertical: 16 }}>{'Re-enter Password'}</Text>
+              <TextInput
+                style={{ padding: 8, backgroundColor: '#f5f5f5' }}
+                placeholder="enter here"
+                secureTextEntry
+                onChangeText={handlePasswordChangeAgain}
+              />
+
+              <View style={{ position: 'absolute', top: 270, right: 120 }}>
+                <Button
+                  color="green"
+                  onPress={() => navigate('main')}
+                  title="confirm"
+                  disabled={isButtonDisabled}
+                />
+              </View>
+            </ScrollView>
+          </View>
+        </View>
+      </View>
+    );
+  }
+
+function infoScreen({ navigation: { navigate } }) {
+    const [client, setClient] = useState('');
+    const [location, setLocation] = useState('');
+    const [postCode, setPostCode] = useState('');
+    const [address, setAddress] = useState('');
+    const [email, setEmail] = useState('');
+    const [city, setCity] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [contactPerson, setContactPerson] = useState('');
+
+    return (
+      <View style={styles.container}>
+        <ImageBackground source={image} style={styles.image} />
+        <ImageBackground
+          source={bottom}
+          style={{
+            width: 390,
+            height: 90,
+            position: 'absolute',
+            top: 670,
+            left: 0,
+          }}
+        />
+        <View
+          style={{
+            height: 30,
+            width: 380,
+            backgroundColor: '#e42c22',
+            borderRadius: 20,
+            position: 'absolute',
+            left: 1,
+            top: 60,
+          }}
+        />
+        <View
           style={{
             height: 420,
             width: 300,
@@ -800,15 +639,20 @@ const Change = () => {
       </View>
     );
   }
-  function clientScreen({ navigation: { navigate } }) {
+function clientScreen({ navigation: { navigate } }) {
     return (
       <View style={styles.container}>
         <ImageBackground source={image} style={styles.image} />
-         <ImageBackground source={bottom} style={{ width: 390,
-      height: 90,
-      position:"absolute",
-      top: 670,
-      left:0,}} />
+        <ImageBackground
+          source={bottom}
+          style={{
+            width: 390,
+            height: 90,
+            position: 'absolute',
+            top: 670,
+            left: 0,
+          }}
+        />
         <View
           style={{
             height: 30,
@@ -820,7 +664,7 @@ const Change = () => {
             top: 60,
           }}
         />
-       <View
+        <View
           style={{
             height: 350,
             width: 330,
@@ -834,22 +678,33 @@ const Change = () => {
             borderWidth: 5,
             borderColor: '#000000',
           }}>
-          <Text style={styles.clientBox1} onPress={() => navigate('Info')}>Bob Dave</Text>
-          <Text style={styles.clientBox2} onPress={() => navigate('Info')}>Sophie York</Text>
-          <Text style={styles.clientBox3} onPress={() => navigate('Info')}>Camron Carter</Text>
+          <Text style={styles.clientBox1} onPress={() => navigate('Info')}>
+            Bob Dave
+          </Text>
+          <Text style={styles.clientBox2} onPress={() => navigate('Info')}>
+            Sophie York
+          </Text>
+          <Text style={styles.clientBox3} onPress={() => navigate('Info')}>
+            Camron Carter
+          </Text>
         </View>
       </View>
     );
   }
-  function logoutScreen({ navigation: { navigate } }) {
+function logoutScreen({ navigation: { navigate } }) {
     return (
       <View styles={styles.container}>
         <ImageBackground source={image} style={styles.image} />
-         <ImageBackground source={bottom} style={{ width: 390,
-      height: 90,
-      position:"absolute",
-      top: 670,
-      left:0,}} />
+        <ImageBackground
+          source={bottom}
+          style={{
+            width: 390,
+            height: 90,
+            position: 'absolute',
+            top: 670,
+            left: 0,
+          }}
+        />
         <View
           style={{
             height: 30,
@@ -891,11 +746,7 @@ const Change = () => {
             onPress={() => navigate('First')}
             title="Yes"
           />
-          <Button
-            color="#e42c22"
-            onPress={() => navigate('main')}
-            title="No"
-          />
+          <Button color="#e42c22" onPress={() => navigate('main')} title="No" />
         </View>
       </View>
     );
