@@ -35,22 +35,13 @@ const image = './assets/yandiyaLogo_Wide.png';
 const icon = './assets/yandiyaLogo_Small.png';
 const window = Dimensions.get('window');
 
-//DARKMODE VALUE
-
-const Change = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-  };
-
   //EXTERNAL STYLESHEET
 
-  const externalStyleSheet = './styles.js';
+  const styles = './styles.js';
 
   //INTERNAL STYLESHEET
 
-  const styles = StyleSheet.create({
+  const Internalstyles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: isDarkMode ? '#333' : '#fff',
@@ -62,6 +53,14 @@ const Change = () => {
     },
   });
 
+//DARKMODE VALUE
+
+const Change = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
   //<ToggleSwitch isDarkMode={isDarkMode} onToggle={toggleDarkMode} />
 
 //SCREEN FUNCTIONS
@@ -69,7 +68,7 @@ const Change = () => {
 function initialScreen({ navigation: { navigate } }) {
     const [checked, setChecked] = useState(false);
     return (
-      <View style={styles.container}>
+      <View style={Internalstyles.container}>
         <ImageBackground source={image} style={styles.image} />
         <ImageBackground
           source={bottom}
@@ -125,7 +124,7 @@ function initialScreen({ navigation: { navigate } }) {
   }
 function settingsScreen({ navigation: { navigate } }) {
     return (
-      <View style={styles.container}>
+      <View style={Internalstyles.container}>
         <ImageBackground source={image} style={styles.image} />
         <ImageBackground
           source={bottom}
@@ -175,7 +174,7 @@ function settingsScreen({ navigation: { navigate } }) {
   }
 function firstScreen({ navigation: { navigate } }) {
     return (
-      <View style={styles.container}>
+      <View style={Internalstyles.container}>
         <ImageBackground source={image} style={styles.image} />
         <ImageBackground
           source={bottom}
@@ -259,7 +258,7 @@ function mainScreen({ navigation: { navigate } }) {
     };
 
     return (
-      <View style={styles.container}>
+      <View style={Internalstyles.container}>
         <ImageBackground source={image} style={styles.image} />
         <ImageBackground
           source={bottom}
@@ -354,7 +353,7 @@ function loginScreen({ navigation: { navigate } }) {
     };
 
     return (
-      <View style={styles.container}>
+      <View style={Internalstyles.container}>
         <ImageBackground source={image} style={styles.image} />
         <ImageBackground
           source={bottom}
@@ -457,7 +456,7 @@ function signInScreen({ navigation: { navigate } }) {
     };
 
     return (
-      <View style={styles.container}>
+      <View style={Internalstyles.container}>
         <ImageBackground source={image} style={styles.image} />
         <ImageBackground
           source={bottom}
@@ -551,7 +550,7 @@ function infoScreen({ navigation: { navigate } }) {
     const [contactPerson, setContactPerson] = useState('');
 
     return (
-      <View style={styles.container}>
+      <View style={Internalstyles.container}>
         <ImageBackground source={image} style={styles.image} />
         <ImageBackground
           source={bottom}
@@ -641,7 +640,7 @@ function infoScreen({ navigation: { navigate } }) {
   }
 function clientScreen({ navigation: { navigate } }) {
     return (
-      <View style={styles.container}>
+      <View style={Internalstyles.container}>
         <ImageBackground source={image} style={styles.image} />
         <ImageBackground
           source={bottom}
@@ -693,7 +692,7 @@ function clientScreen({ navigation: { navigate } }) {
   }
 function logoutScreen({ navigation: { navigate } }) {
     return (
-      <View styles={styles.container}>
+      <View styles={Internalstyles.container}>
         <ImageBackground source={image} style={styles.image} />
         <ImageBackground
           source={bottom}
