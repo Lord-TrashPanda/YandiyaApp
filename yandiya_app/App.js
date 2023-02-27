@@ -1,4 +1,5 @@
 import React, { useEffect, useState, TouchableOpacity, useRef } from 'react';
+import Checkbox from 'expo-checkbox';
 import {
   View,
   Text,
@@ -15,196 +16,521 @@ import {
   AppRegistry,
   Platform,
   input,
-  Checkbox,
   container,
   Dimensions,
+  CheckBox,
+  Switch,
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 const image = { uri: 'https://i.imgur.com/A8WIsR2.png' };
 const icon = { uri: 'https://i.imgur.com/5QVr3RA.png' };
 const window = Dimensions.get('window');
+import { Ionicons } from '@expo/vector-icons';
+import ToggleSwitch from './ToggleSwitch';
+import bottom from './bottom.jpg';
+const Stack = createStackNavigator();
 
-//(window.width) *0.000
-//(window.height) *0.000
+//   <Checkbox style={styles.checkbox} value={checked} onValueChange={setChecked} />
 
-function initialScreen({ navigation: { navigate } }) {
+function MyCheckbox() {
+  const [checked, setChecked] = useState(false);
   return (
-    <View style={styles.container}>
-      <ImageBackground source={image} style={styles.image} />
-      <View
-        style={{
-          height: window.height * 0.05,
-          width: window.width * 0.95,
-          backgroundColor: '#e42c22',
-          borderRadius: 20,
-          position: 'absolute',
-          left: 10,
-          top: 50,
-        }}></View>
-      <View>
-        <ImageBackground source={icon} style={styles.icon} />
-      </View>
-      <View
-        style={{
-          height: window.height * 0.16,
-          width: window.width * 0.7,
-          backgroundColor: '#252525',
-          border: 'black',
-          position: 'absolute',
-          left: 60,
-          top: 400,
-          borderRadius: 20,
-          boxShadow: '0px 0px 18px #252525',
-        }}>
-        <Button
-          color="white"
-          onPress={() => navigate('Sign Up')}
-          title="sign Up"
-        />
-        <View style={styles.space} />
-        <Button
-          style={styles.logIn}
-          color="white"
-          onPress={() => navigate('Login')}
-          title="log in"
-        />
-      </View>
-    </View>
+    <Pressable
+      style={[styles.checkboxBase, checked && styles.checkboxChecked]}
+      onPress={() => setChecked(!checked)}>
+      {checked && <Ionicons name="checkmark" size={24} color="white" />}
+    </Pressable>
   );
 }
-function firstScreen({ navigation: { navigate } }) {
-  return (
-    <View style={styles.container}>
-      <ImageBackground source={image} style={styles.image} />
-      <View
-        style={{
-          height: 30,
-          width: 370,
-          backgroundColor: '#e42c22',
-          borderRadius: 20,
-          position: 'absolute',
-          left: 10,
-          top: 50,
-        }}></View>
-      <View
-        style={{
-          height: 520,
-          width: 330,
-          backgroundColor: '#f8f7f7',
-          border: 'black',
-          position: 'absolute',
-          left: 30,
-          top: 140,
-          borderRadius: 20,
-          boxShadow: '0px 0px 18px #252525',
-        }}>
-        <Text
-          style={{
-            color: 'black',
-            fontSize: 17,
-            position: 'absolute',
-            left: 15,
-            top: 90,
-            textAllign: 'center',
-            fontWeight: 'bold',
-          }}>
-          Installation and commission process
-        </Text>
-        <Text
-          style={{
-            color: 'black',
-            fontSize: 12,
-            position: 'absolute',
-            left: 25,
-            top: 160,
-            textAllign: 'center',
-            fontWeight: 'bold',
-          }}>
-          welcome to the yandiya simple commissions app
-        </Text>
+
+const Change = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: isDarkMode ? '#333' : '#fff',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    text: {
+      color: isDarkMode ? '#fff' : '#333',
+    },
+    image: {
+      width: 190,
+      height: 200,
+      flex: 1,
+      position: 'absolute',
+      top: -45,
+      right: 0,
+    },
+    icon: {
+      width: 400,
+      height: 400,
+      position: 'absolute',
+      top: -300,
+      left: -190,
+    },
+    text: {
+      color: 'white',
+      fontSize: 18,
+      lineHeight: 84,
+      textAllign: 'right',
+      position: 'absolute',
+      top: -5,
+      left: 50,
+      fontWeight: 'bold',
+    },
+    signUp: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'absolute',
+      top: 300,
+      right: 94,
+      color: '#212121',
+      borderWidth: 5,
+      borderColor: '#000000',
+    },
+    logIn: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'absolute',
+      top: 360,
+      right: 90,
+      borderWidth: 5,
+      borderColor: '#000000',
+    },
+    settings: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'absolute',
+      top: 460,
+      right: 10,
+    },
+    space: {
+      flex: 1,
+    },
+    bannerBox: {
+      flex: 5,
+      justifyContent: 'center',
+      backgroundColor: '#e42c22',
+    },
+    space: {
+      flex: 1,
+    },
+    middleBox: {
+      backgroundColor: '#f8f7f7',
+      justifyContent: 'center',
+      flex: 10,
+      width: 250,
+      marginLeft: 15,
+      borderRadius: 40,
+    },
+    fixToText: {
+      marginTop: 40,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      textAlign: 'center',
+      marginBottom: 50,
+      marginLeft: 30,
+      marginRight: 30,
+    },
+    boxFont: {
+      justifyContent: 'center',
+      textAlign: 'center',
+    },
+    shadow: {
+      shadowColor: '#000000',
+      top: 100,
+    },
+    shadowOffset: {
+      width: 0,
+      height: 9,
+      shadowOpacity: 0.25,
+      shadowRadius: 40,
+      elevation: 18,
+    },
+    section: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    paragraph: {
+      fontSize: 15,
+    },
+    checkbox: {
+      margin: 8,
+    },
+    box: {
+      height: 50,
+      width: 220,
+      backgroundColor: '#000000',
+      position: 'absolute',
+      left: 40,
+      top: 20,
+      color: 'white',
+      borderRadius: 20,
+      textAlign: 'center',
+      flex: 1,
+    },
+    box1: {
+      height: 30,
+      width: 220,
+      backgroundColor: '#000000',
+      position: 'absolute',
+      left: 40,
+      top: 90,
+      color: 'white',
+      borderRadius: 20,
+      textAlign: 'center',
+      flex: 1,
+    },
+    clientBox1: {
+      height: 30,
+      width: 260,
+      backgroundColor: '#000000',
+      position: 'absolute',
+      left: 40,
+      top: 20,
+      color: 'white',
+      borderRadius: 20,
+      textAlign: 'center',
+      flex: 1,
+    },
+    clientBox2: {
+      height: 30,
+      width: 260,
+      backgroundColor: '#000000',
+      position: 'absolute',
+      left: 40,
+      top: 90,
+      color: 'white',
+      borderRadius: 20,
+      textAlign: 'center',
+      flex: 1,
+    },
+    clientBox3: {
+      height: 30,
+      width: 260,
+      backgroundColor: '#000000',
+      position: 'absolute',
+      left: 40,
+      top: 160,
+      color: 'white',
+      borderRadius: 20,
+      textAlign: 'center',
+      flex: 1,
+    },
+    clientsBottomButton: {
+      position: 'absolute',
+      top: 550,
+      right: 80,
+    },
+    bottom:{
+      width: 390,
+      height: 90,
+      position:"absolute",
+      top: 300,
+      left:-60,
+    },
+  });
+
+  //<ToggleSwitch isDarkMode={isDarkMode} onToggle={toggleDarkMode} />
+
+  function initialScreen({ navigation: { navigate } }) {
+    const [checked, setChecked] = useState(false);
+    return (
+      <View style={styles.container}>
+        <ImageBackground source={image} style={styles.image} />
+        <ImageBackground source={bottom} style={{ width: 390,
+      height: 90,
+      position:"absolute",
+      top: 670,
+      left:0,}} />
         <View
           style={{
+            height: window.height * 0.05,
+            top: 50,
+            width: window.width * 0.95,
+            backgroundColor: '#e42c22',
+            borderRadius: 20,
             position: 'absolute',
-            left: 70,
-            top: 250,
-            fontWeight: 'bold',
+            left: 10,
+            top: 50,
+          }}></View>
+        <View>
+          <ImageBackground source={icon} style={styles.icon} />
+        </View>
+        <View
+          style={{
+            height: window.height * 0.11,
+            width: window.width * 0.7,
+            backgroundColor: '#252525',
+            border: 'black',
+            position: 'absolute',
+            left: 60,
+            top: 450,
+            borderRadius: 20,
+            boxShadow: '0px 0px 18px #252525',
           }}>
           <Button
-            color="green"
-            onPress={() => navigate('main')}
-            title="Welcome"
+            color="white"
+            onPress={() => navigate('Sign Up')}
+            title="sign Up"
+          />
+          <View style={styles.space} />
+          <Button
+            style={styles.logIn}
+            color="white"
+            onPress={() => navigate('Login')}
+            title="log in"
           />
         </View>
       </View>
-    </View>
-  );
-}
-
-function mainScreen({ navigation: { navigate } }) {
-  return (
-    <View style={styles.container}>
-      <ImageBackground source={image} style={styles.image} />
-      <View
-        style={{
-          height: 30,
-          width: 380,
-          backgroundColor: '#e42c22',
-          borderRadius: 20,
-          position: 'absolute',
-          left: 1,
-          top: 60,
-        }}>
-        <Text
-          style={{
-            color: 'white',
-            fontSize: 18,
-            position: 'absolute',
-            right: 130,
-            textAlign: 'center',
-          }}>
-          Home Screen
-        </Text>
+    );
+  }
+  function settingsScreen({ navigation: { navigate } }) {
+    return (
+      <View style={styles.container}>
+        <ImageBackground source={image} style={styles.image} />
+        <ImageBackground source={bottom} style={{ width: 390,
+      height: 90,
+      position:"absolute",
+      top: 670,
+      left:0,}} />
         <View
           style={{
-            height: 300,
+            height: 30,
+            width: 380,
+            backgroundColor: '#e42c22',
+            borderRadius: 20,
+            position: 'absolute',
+            left: 10,
+            top: 60,
+          }}></View>
+        <View
+          style={{
+            height: 520,
             width: 330,
-            backgroundColor: '#ffffff',
+            backgroundColor: '#f8f7f7',
             border: 'black',
             position: 'absolute',
             left: 30,
-            top: 90,
+            top: 140,
             borderRadius: 20,
-            boxShadow: '10px 10px 40px #454545',
+            boxShadow: '0px 0px 18px #252525',
+            borderWidth: 5,
+            borderColor: '#000000',
           }}>
-          <Text onPress={() => navigate('commission')} style={styles.box}>
-            bo's diner: 2 celing pannels, managers office click here
-          </Text>
-          <Text onPress={() => navigate('signature')} style={styles.box1}>
-            Marcus's excuse for stupidity'
-          </Text>
+          <Button
+            color="#212121"
+            onPress={() => navigate('Info')}
+            title="Info"
+          />
+          <Button
+            color="#212121"
+            onPress={() => navigate('LogOut')}
+            title="Logout"
+          />
+          <View style={{ position: 'absolute',
+            top: 90,
+            right: 90,}}>
+          <ToggleSwitch isDarkMode={isDarkMode} onToggle={toggleDarkMode} />
+          </View>
         </View>
       </View>
-      <View style={{ position: 'absolute', top: 370, right: 145 }}>
-        <Button
-          color="#212121"
-          onPress={() => navigate('Settings')}
-          title="Settings"
-        />
-        <Button
-          color="#212121"
-          onPress={() => navigate('Client')}
-          title="Client"
-        />
+    );
+  }
+  function firstScreen({ navigation: { navigate } }) {
+    return (
+      <View style={styles.container}>
+        <ImageBackground source={image} style={styles.image} />
+         <ImageBackground source={bottom} style={{ width: 390,
+      height: 90,
+      position:"absolute",
+      top: 670,
+      left:0,}} />
+        <View
+          style={{
+            height: 30,
+            width: 370,
+            backgroundColor: '#e42c22',
+            borderRadius: 20,
+            position: 'absolute',
+            left: 10,
+            top: 50,
+          }}></View>
+        <View
+          style={{
+            height: 520,
+            width: 330,
+            backgroundColor: '#f8f7f7',
+            border: 'black',
+            position: 'absolute',
+            left: 30,
+            top: 140,
+            borderRadius: 20,
+            boxShadow: '0px 0px 18px #252525',
+          }}>
+          <Text
+            style={{
+              color: 'black',
+              fontSize: 17,
+              position: 'absolute',
+              left: 15,
+              top: 90,
+              textAllign: 'center',
+              fontWeight: 'bold',
+            }}>
+            Installation and commission process
+          </Text>
+          <Text
+            style={{
+              color: 'black',
+              fontSize: 12,
+              position: 'absolute',
+              left: 20,
+              top: 160,
+              textAllign: 'center',
+              fontWeight: 'bold',
+            }}>
+            welcome to the yandiya simple commissions app
+          </Text>
+          <View
+            style={{
+              position: 'absolute',
+              left: 120,
+              top: 250,
+              fontWeight: 'bold',
+            }}>
+            <Button
+              color="green"
+              onPress={() => navigate('Welcome')}
+              title="Welcome"
+            />
+          </View>
+        </View>
       </View>
-    </View>
-  );
-}
-function loginScreen({ navigation: { navigate } }) {
+    );
+  }
+
+  function mainScreen({ navigation: { navigate } }) {
+    const [isDarkMode, setIsDarkMode] = useState(false);
+
+    const handleToggleSwitch = () => {
+      setIsDarkMode(!isDarkMode);
+    };
+
+    return (
+      <View style={styles.container}>
+        <ImageBackground source={image} style={styles.image} />
+         <ImageBackground source={bottom} style={{ width: 390,
+      height: 90,
+      position:"absolute",
+      top: 670,
+      left:0,}} />
+        <View
+          style={{
+            height: 30,
+            width: 380,
+            backgroundColor: '#e42c22',
+            borderRadius: 20,
+            position: 'absolute',
+            left: 1,
+            top: 60,
+          }}>
+          <Text
+            style={{
+              color: 'white',
+              fontSize: 18,
+              position: 'absolute',
+              right: 130,
+              textAlign: 'center',
+            }}>
+            Home Screen
+          </Text>
+          <View
+            style={{
+              height: 450,
+              width: 300,
+              backgroundColor: '#ffffff',
+              position: 'absolute',
+              left: 50,
+              top: 90,
+              borderRadius: 20,
+              boxShadow: '10px 10px 40px #454545',
+              borderWidth: 5,
+              borderColor: '#000000',
+            }}>
+            <Text onPress={() => navigate('commission')}>
+              {'\n'}
+              bo's diner: 2 celing pannels, managers office
+              {'\n'}
+            </Text>
+            <Text onPress={() => navigate('signature')}>
+              something will go here soon
+            </Text>
+          </View>
+        </View>
+        <View style={{ position: 'absolute', top: 370, right: 145 }}>
+          <Button
+            color="#212121"
+            onPress={() => navigate('Settings')}
+            title="Settings"
+          />
+          <Button
+            color="#212121"
+            onPress={() => navigate('Client')}
+            title="Client"
+          />
+        </View>
+      </View>
+    );
+  }
+
+ function loginScreen({ navigation: { navigate } }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+  const handleEmailChange = (text) => {
+    setEmail(text);
+    checkInputsFilled();
+  };
+
+  const handlePasswordChange = (text) => {
+    setPassword(text);
+    checkInputsFilled();
+  };
+
+  const checkInputsFilled = () => {
+    if (email && password) {
+      setIsButtonDisabled(false);
+    } else {
+      setIsButtonDisabled(true);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <ImageBackground source={image} style={styles.image} />
-
+      <ImageBackground
+        source={bottom}
+        style={{
+          width: 390,
+          height: 90,
+          position: 'absolute',
+          top: 670,
+          left: 0,
+        }}
+      />
       <View
         style={{
           height: 30,
@@ -216,15 +542,6 @@ function loginScreen({ navigation: { navigate } }) {
           top: 60,
         }}
       />
-      <Text
-        style={{
-          color: 'white',
-          fontSize: 18,
-          position: 'absolute',
-          left: 170,
-        }}>
-        Login
-      </Text>
       <View
         style={{
           height: 250,
@@ -236,18 +553,25 @@ function loginScreen({ navigation: { navigate } }) {
           top: 150,
           borderRadius: 20,
           boxShadow: '10px 10px 40px #454545',
-        }}>
+          borderWidth: 5,
+          borderColor: '#000000',
+        }}
+      >
         <ScrollView>
           <Text style={{ marginVertical: 16 }}>{'Input Email'}</Text>
           <TextInput
             style={{ padding: 8, backgroundColor: '#f5f5f5' }}
             placeholder="enter here"
+            value={email}
+            onChangeText={handleEmailChange}
           />
           <Text style={{ marginVertical: 16 }}>{'Input Password'}</Text>
           <TextInput
             style={{ padding: 8, backgroundColor: '#f5f5f5' }}
             placeholder="enter here"
             secureTextEntry
+            value={password}
+            onChangeText={handlePasswordChange}
           />
           <View
             style={{
@@ -255,11 +579,13 @@ function loginScreen({ navigation: { navigate } }) {
               top: 210,
               right: 120,
               fontWeight: 'bold',
-            }}>
+            }}
+          >
             <Button
               color="green"
               onPress={() => navigate('main')}
               title="confirm"
+              disabled={isButtonDisabled}
             />
           </View>
         </ScrollView>
@@ -267,10 +593,49 @@ function loginScreen({ navigation: { navigate } }) {
     </View>
   );
 }
-function signInScreen({ navigation: { navigate } }) {
+
+ function signInScreen({ navigation: { navigate } }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordagain, setpasswordagain] = useState('');
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+  const handleEmailChange = (text) => {
+    setEmail(text);
+    checkInputsFilled();
+  };
+
+  const handlePasswordChange = (text) => {
+    setPassword(text);
+    checkInputsFilled();
+  };
+
+  const handlePasswordChangeAgain = (text) => {
+    setpasswordagain(text);
+    checkInputsFilled();
+  };
+
+  const checkInputsFilled = () => {
+    if (email && password && passwordagain) {
+      setIsButtonDisabled(false);
+    } else {
+      setIsButtonDisabled(true);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <ImageBackground source={image} style={styles.image} />
+      <ImageBackground
+        source={bottom}
+        style={{
+          width: 390,
+          height: 90,
+          position: 'absolute',
+          top: 670,
+          left: 0,
+        }}
+      />
       <View
         style={{
           height: 30,
@@ -302,24 +667,29 @@ function signInScreen({ navigation: { navigate } }) {
             top: 120,
             borderRadius: 20,
             boxShadow: '10px 10px 40px #454545',
+            borderWidth: 5,
+            borderColor: '#000000',
           }}>
           <ScrollView>
             <Text style={{ marginVertical: 16 }}>{'Input Email'}</Text>
             <TextInput
               style={{ padding: 8, backgroundColor: '#f5f5f5' }}
               placeholder="enter here"
+              onChangeText={handleEmailChange}
             />
             <Text style={{ marginVertical: 16 }}>{'Input Password'}</Text>
             <TextInput
               style={{ padding: 8, backgroundColor: '#f5f5f5' }}
               placeholder="enter here"
               secureTextEntry
+              onChangeText={handlePasswordChange}
             />
             <Text style={{ marginVertical: 16 }}>{'Re-enter Password'}</Text>
             <TextInput
               style={{ padding: 8, backgroundColor: '#f5f5f5' }}
               placeholder="enter here"
               secureTextEntry
+              onChangeText={handlePasswordChangeAgain}
             />
 
             <View style={{ position: 'absolute', top: 270, right: 120 }}>
@@ -327,6 +697,7 @@ function signInScreen({ navigation: { navigate } }) {
                 color="green"
                 onPress={() => navigate('main')}
                 title="confirm"
+                disabled={isButtonDisabled}
               />
             </View>
           </ScrollView>
@@ -335,353 +706,216 @@ function signInScreen({ navigation: { navigate } }) {
     </View>
   );
 }
-function infoScreen({ navigation: { navigate } }) {
-  return (
-    <View style={styles.container}>
-      <ImageBackground source={image} style={styles.image} />
 
-      <View
-        style={{
-          height: 420,
-          width: 240,
-          backgroundColor: '#ffffff',
-          border: 'black',
-          position: 'absolute',
-          top: 70,
-          left: 20,
-          borderRadius: 10,
-          boxShadow: '10px 10px 30px #454545',
-        }}>
-        <ScrollView
-          style={[container, { flexDirection: 'column' }]}
-          horizontal={false}>
-          <View>
-            <Text> client info:</Text>
-            <br />
-            <Text> Client Name:</Text>
-            <TextInput
-              placeholder="client"
-              style={{ padding: 8, backgroundColor: '#f5f5f5' }}
-              onChangeText={(text) => setClient(text)}></TextInput>
-            <br />
-            <Text> Client Location:</Text>
-            <TextInput
-              placeholder="Location"
-              style={{ padding: 8, backgroundColor: '#f5f5f5' }}
-              onChangeText={(text) => setLocation(text)}></TextInput>
-            <br />
-            <Text> Client Address:</Text>
-            <TextInput
-              placeholder="address"
-              style={{ padding: 8, backgroundColor: '#f5f5f5' }}
-              onChangeText={(text) => setAddress(text)}></TextInput>
-            <br />
-            <Text> Client City:</Text>
-            <TextInput
-              placeholder="City"
-              style={{ padding: 8, backgroundColor: '#f5f5f5' }}
-              onChangeText={(text) => setCity(text)}></TextInput>
-            <br />
-            <Text> Client post code:</Text>
-            <TextInput
-              placeholder="post code"
-              style={{ padding: 8, backgroundColor: '#f5f5f5' }}
-              onChangeText={(text) => setPostCode(text)}></TextInput>
-            <br />
-            <Text> Client phone number:</Text>
-            <TextInput
-              placeholder="phone number"
-              style={{ padding: 8, backgroundColor: '#f5f5f5' }}
-              onChangeText={(text) => setPhoneNumber(text)}></TextInput>
-            <br />
-            <Text> Client Email:</Text>
-            <TextInput
-              placeholder="Email"
-              style={{ padding: 8, backgroundColor: '#f5f5f5' }}
-              onChangeText={(text) => setEmail(text)}></TextInput>
-            <br />
-            <Text> Contact:</Text>
-            <TextInput
-              placeholder="contact person"
-              style={{ padding: 8, backgroundColor: '#f5f5f5' }}
-              onChangeText={(text) => setContactPerson(text)}></TextInput>
-            <br />
-          </View>
-        </ScrollView>
+  function infoScreen({ navigation: { navigate } }) {
+    const [client, setClient] = useState('');
+   const [location, setLocation] = useState('');
+   const [postCode, setPostCode] = useState('');
+   const [address, setAddress] = useState('');
+   const [email, setEmail] = useState('');
+   const [city, setCity] = useState('');
+   const [phoneNumber, setPhoneNumber] = useState('');
+   const [contactPerson, setContactPerson] = useState('');
+
+    return (
+      <View style={styles.container}>
+        <ImageBackground source={image} style={styles.image} />
+         <ImageBackground source={bottom} style={{ width: 390,
+      height: 90,
+      position:"absolute",
+      top: 670,
+      left:0,}} />
+         <View
+          style={{
+            height: 30,
+            width: 380,
+            backgroundColor: '#e42c22',
+            borderRadius: 20,
+            position: 'absolute',
+            left: 1,
+            top: 60,
+          }}/>
+       <View
+          style={{
+            height: 420,
+            width: 300,
+            backgroundColor: '#ffffff',
+            border: 'black',
+            position: 'absolute',
+            top: 130,
+            left: 45,
+            borderRadius: 10,
+            boxShadow: '10px 10px 30px #454545',
+            borderWidth: 5,
+            borderColor: '#000000',
+          }}>
+          <ScrollView
+            style={[container, { flexDirection: 'column' }]}
+            horizontal={false}>
+            <View>
+              <Text> client info:</Text>
+              <Text> Client Name:</Text>
+              <TextInput
+                placeholder="client"
+                style={{ padding: 8, backgroundColor: '#f5f5f5' }}
+                onChangeText={(text) => setClient(text)}></TextInput>
+              <Text> Client Location:{'\n'}</Text>
+              <TextInput
+                placeholder="Location"
+                style={{ padding: 8, backgroundColor: '#f5f5f5' }}
+                onChangeText={(text) => setLocation(text)}></TextInput>
+              <Text> Client Address:{'\n'}</Text>
+              <TextInput
+                placeholder="address"
+                style={{ padding: 8, backgroundColor: '#f5f5f5' }}
+                onChangeText={(text) => setAddress(text)}></TextInput>
+              <Text> Client City:{'\n'}</Text>
+              <TextInput
+                placeholder="City"
+                style={{ padding: 8, backgroundColor: '#f5f5f5' }}
+                onChangeText={(text) => setCity(text)}></TextInput>
+              <Text> Client post code:{'\n'}</Text>
+              <TextInput
+                placeholder="post code"
+                style={{ padding: 8, backgroundColor: '#f5f5f5' }}
+                onChangeText={(text) => setPostCode(text)}></TextInput>
+              <Text> Client phone number:{'\n'}</Text>
+              <TextInput
+                placeholder="phone number"
+                style={{ padding: 8, backgroundColor: '#f5f5f5' }}
+                onChangeText={(text) => setPhoneNumber(text)}></TextInput>
+              <Text> Client Email:{'\n'}</Text>
+              <TextInput
+                placeholder="Email"
+                style={{ padding: 8, backgroundColor: '#f5f5f5' }}
+                onChangeText={(text) => setEmail(text)}></TextInput>
+              <Text> Contact:{'\n'}</Text>
+              <TextInput
+                placeholder="contact person"
+                style={{ padding: 8, backgroundColor: '#f5f5f5' }}
+                onChangeText={(text) => setContactPerson(text)}></TextInput>
+            </View>
+          </ScrollView>
+        </View>
       </View>
-    </View>
-  );
-}
-function clientScreen ({ navigation: { navigate } }){
-  return (
-  <View  style={styles.container}>
-   <ImageBackground source={image} style={styles.image} />
-   <View
-        style={{
-          height: 30,
-          width: 380,
-          backgroundColor: '#e42c22',
-          borderRadius: 20,
-          position: 'absolute',
-          left: 1,
-          top: 60,
-        }}/>
+    );
+  }
+  function clientScreen({ navigation: { navigate } }) {
+    return (
+      <View style={styles.container}>
+        <ImageBackground source={image} style={styles.image} />
+         <ImageBackground source={bottom} style={{ width: 390,
+      height: 90,
+      position:"absolute",
+      top: 670,
+      left:0,}} />
         <View
-        style={{
-          height: window.height * 0.7,
-          width: window.width * 0.8,
-          backgroundColor:'white',
-          border: 'black',
-          position: 'absolute',
-          left: 40,
-          top: 120,
-          borderRadius: 20,
-          boxShadow: '0px 0px 18px #252525',
-        }}>
-        <Button
-          color="white"
-          onPress={() => navigate('Sign Up')}
-          title="sign Up"
+          style={{
+            height: 30,
+            width: 380,
+            backgroundColor: '#e42c22',
+            borderRadius: 20,
+            position: 'absolute',
+            left: 1,
+            top: 60,
+          }}
         />
-        <View style={styles.space} />
-        <Button
-          style={styles.logIn}
-          color="white"
-          onPress={() => navigate('Login')}
-          title="log in"
-        />
+       <View
+          style={{
+            height: 350,
+            width: 330,
+            backgroundColor: '#ffffff',
+            border: 'black',
+            position: 'absolute',
+            left: 30,
+            top: 150,
+            borderRadius: 20,
+            boxShadow: '10px 10px 40px #454545',
+            borderWidth: 5,
+            borderColor: '#000000',
+          }}>
+          <Text style={styles.clientBox1} onPress={() => navigate('Info')}>Bob Dave</Text>
+          <Text style={styles.clientBox2} onPress={() => navigate('Info')}>Sophie York</Text>
+          <Text style={styles.clientBox3} onPress={() => navigate('Info')}>Camron Carter</Text>
+        </View>
       </View>
-   </View>
-  );
-}
-const Stack = createStackNavigator();
+    );
+  }
+  function logoutScreen({ navigation: { navigate } }) {
+    return (
+      <View styles={styles.container}>
+        <ImageBackground source={image} style={styles.image} />
+         <ImageBackground source={bottom} style={{ width: 390,
+      height: 90,
+      position:"absolute",
+      top: 670,
+      left:0,}} />
+        <View
+          style={{
+            height: 30,
+            width: 380,
+            backgroundColor: '#e42c22',
+            borderRadius: 20,
+            position: 'absolute',
+            left: 1,
+            top: 60,
+          }}
+        />
+        <Text
+          style={{
+            fontSize: 24,
+            color: 'black',
+            position: 'absolute',
+            top: 250,
+            right: 75,
+          }}>
+          Do you want to sign out ?
+        </Text>
+        <View
+          style={{
+            position: 'absolute',
+            top: 300,
+            right: 170,
+            height: window.height * 0.09,
+            width: window.width * 0.7,
+            backgroundColor: '#252525',
+            border: 'black',
+            position: 'absolute',
+            left: 60,
+            top: 400,
+            borderRadius: 20,
+            boxShadow: '0px 0px 18px #252525',
+          }}>
+          <Button
+            color="#32aa46"
+            onPress={() => navigate('First')}
+            title="Yes"
+          />
+          <Button
+            color="#e42c22"
+            onPress={() => navigate('main')}
+            title="No"
+          />
+        </View>
+      </View>
+    );
+  }
 
-function MyDrawer() {
-  return (
-    <Stack.Navigator useLegacyImplementation>
-      <Stack.Screen name="Welcome" component={initialScreen} />
-      <Stack.Screen name="First" component={firstScreen} />
-      <Stack.Screen name="main" component={mainScreen} />
-      <Stack.Screen name="Sign Up" component={signInScreen} />
-      <Stack.Screen name="Login" component={loginScreen} />
-      <Stack.Screen name="Info" component={infoScreen} />
-      <Stack.Screen name="Client" component={clientScreen} />
-    </Stack.Navigator>
-  );
-}
-
-export default function App() {
   return (
     <NavigationContainer>
-      <MyDrawer />
+      <Stack.Navigator>
+        <Stack.Screen name="First" component={firstScreen} />
+        <Stack.Screen name="Welcome" component={initialScreen} />
+        <Stack.Screen name="main" component={mainScreen} />
+        <Stack.Screen name="Sign Up" component={signInScreen} />
+        <Stack.Screen name="Login" component={loginScreen} />
+        <Stack.Screen name="Info" component={infoScreen} />
+        <Stack.Screen name="Client" component={clientScreen} />
+        <Stack.Screen name="Settings" component={settingsScreen} />
+        <Stack.Screen name="LogOut" component={logoutScreen} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
-}
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#f8f7f7',
-  },
-  image: {
-    width: 190,
-    height: 200,
-    flex: 1,
-    position: 'absolute',
-    top: -45,
-    right: 0,
-  },
-  icon: {
-    width: 400,
-    height: 400,
-    position: 'absolute',
-    top: 60,
-    right: -20,
-  },
-  image3: {
-    width: 250,
-    height: 90,
-    position: 'absolute',
-    top: -20,
-    left: 20,
-    borderRadius: 100,
-  },
-  text: {
-    color: 'white',
-    fontSize: 18,
-    lineHeight: 84,
-    textAllign: 'right',
-    position: 'absolute',
-    top: -5,
-    left: 50,
-    fontWeight: 'bold',
-  },
-  text1: {
-    fontSize: 12,
-    position: 'absolute',
-    top: 20,
-    right: 40,
-    fontWeight: 'bold',
-    color: 'white',
-  },
-  inc: {
-    color: 'black',
-    position: 'absolute',
-    top: 150,
-    right: 50,
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  commisions: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    top: 460,
-    right: 170,
-  },
-  email: {
-    flex: 1,
-    alignContent: 'center',
-    justifyContent: 'center',
-    padding: 16,
-    position: 'absolute',
-    top: 120,
-    right: 40,
-  },
-  text2: {
-    color: 'white',
-    fontSize: 18,
-    lineHeight: 84,
-    textAllign: 'right',
-    position: 'absolute',
-    top: -39,
-    left: 90,
-    fontWeight: 'bold',
-  },
-  epassword: {
-    flex: 1,
-    alignContent: 'center',
-    justifyContent: 'center',
-    padding: 16,
-    position: 'absolute',
-    top: 260,
-    right: 40,
-  },
-  text3: {
-    color: 'white',
-    fontSize: 18,
-    lineHeight: 84,
-    textAllign: 'right',
-    position: 'absolute',
-    top: 30,
-    left: 90,
-    fontWeight: 'bold',
-  },
-  signUp: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    top: 300,
-    right: 94,
-    color: '#212121',
-  },
-  logIn: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    top: 360,
-    right: 90,
-  },
-  Back: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    top: -100,
-    right: -20,
-  },
-  Bank: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    top: -150,
-    right: -10,
-  },
-  settings: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    top: 460,
-    right: 10,
-  },
-  space: {
-    flex: 1,
-  },
-  box: {
-    height: 50,
-    width: 290,
-    backgroundColor: '#000000',
-    position: 'absolute',
-    left: 20,
-    top: 20,
-    color: 'white',
-    borderRadius: 20,
-    textAlign: 'center',
-    flex: 1,
-  },
-  box1: {
-    height: 30,
-    width: 290,
-    backgroundColor: '#000000',
-    position: 'absolute',
-    left: 20,
-    top: 90,
-    color: 'white',
-    borderRadius: 20,
-    textAlign: 'center',
-    flex: 1,
-  },
-  bannerBox: {
-    flex: 5,
-    justifyContent: 'center',
-    backgroundColor: '#e42c22',
-  },
-  space: {
-    flex: 1,
-  },
-  middleBox: {
-    backgroundColor: '#f8f7f7',
-    justifyContent: 'center',
-    flex: 10,
-    width: 250,
-    marginLeft: 15,
-    borderRadius: 40,
-  },
-  fixToText: {
-    marginTop: 40,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    textAlign: 'center',
-    marginBottom: 50,
-    marginLeft: 30,
-    marginRight: 30,
-  },
-  boxFont: {
-    justifyContent: 'center',
-    textAlign: 'center',
-  },
-  shadow: {
-    shadowColor: '#000000',
-    top: 100,
-  },
-  shadowOffset: {
-    width: 0,
-    height: 9,
-    shadowOpacity: 0.25,
-    shadowRadius: 40,
-    elevation: 18,
-  },
-});
+};
+
+export default Change;
